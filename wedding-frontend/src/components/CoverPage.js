@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CoverPage.css';
+import Footer from './Footer2';
 const CoverPage = () => {
     const navigate = useNavigate();
 
