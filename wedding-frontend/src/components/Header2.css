@@ -1,0 +1,39 @@
+.header2-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #f9f6fc, #f0e5ef);
+    padding: 16px 0;
+    border-bottom: 1px solid #e4d6f1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header2-link {
+    margin: 0 30px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #6a4f91;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease-in-out;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.header2-link:hover {
+    color: #fff;
+    background-color: #a18fbb;
+    box-shadow: 0 4px 10px rgba(140, 102, 193, 0.3);
+    transform: translateY(-2px);
+}
+
+.header2-link.active {
+    background-color: #8c66c1;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 14px;
+}

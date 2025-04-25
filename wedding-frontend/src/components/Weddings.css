@@ -1,0 +1,83 @@
+.weddings-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    color: #5e4b7d;
+}
+
+.wedding-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.wedding-list li {
+    padding: 8px;
+    background: #f8f5fc;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #e4d8f0;
+}
+
+.no-weddings {
+    font-style: italic;
+    color: #a48ecb;
+}
+
+.divider {
+    margin: 25px 0;
+    border-top: 1px solid #e0cdea;
+}
+
+.add-btn {
+    padding: 10px 20px;
+    background-color: #a48ecb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #8c66c1;
+}
+
+.wedding-form {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wedding-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.wedding-form button {
+    background-color: #5e4b7d;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.wedding-btn {
+    background-color: #e4d8f0;
+    color: #5e4b7d;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+}
+
+.wedding-btn:hover {
+    background-color: #d4c2eb;
+}

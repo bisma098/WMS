@@ -1,0 +1,68 @@
+.vendors-page {
+    padding: 2rem;
+    background-color: #fdf9ff;
+    min-height: 100vh;
+}
+
+.vendors-page h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #6b4c9a;
+}
+
+.vendors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.vendor-card {
+    background: #fff;
+    border: 2px solid #e0d4f3;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.vendor-card:hover {
+    transform: scale(1.02);
+}
+
+.vendor-card h3 {
+    margin-top: 0;
+    color: #764abc;
+}
+
+.vendor-card p {
+    margin: 0.3rem 0;
+    color: #333;
+}
+
+.vendor-card button {
+    margin-top: 1rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #a678e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.vendor-card button:hover {
+    background-color: #875ec0;
+}
+
+.vendor-card.empty {
+    text-align: center;
+    color: #777;
+    background-color: #f4efff;
+    border-style: dashed;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 2rem;
+}

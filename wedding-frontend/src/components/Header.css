@@ -1,0 +1,92 @@
+/* HEADER CONTAINER */
+.header-container {
+    height: 100px;
+    width: 100%;
+    background-image: url('/public/assets/gradient-ribbon.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ddd;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* LEFT SECTION - LOGO + BRAND NAME */
+.header-left {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.header-logo {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+}
+
+.brand-name {
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+/* RIGHT SECTION - PROFILE ICON */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 20px;
+    color: white;
+    position: relative;
+}
+
+/* Profile icon and username clickable container */
+.user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.account-icon {
+    font-size: 30px;
+}
+
+.username {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+/* DROPDOWN MENU */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 5;
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    width: 160px;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    color: #5e4b7d;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #eee;
+}
+
+
+.dropdown-item:hover {
+    background-color: #f0e5f7;
+}

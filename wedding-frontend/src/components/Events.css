@@ -1,0 +1,92 @@
+.events-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    color: #5e4b7d;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.events-dropdown {
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f9f6ff;
+    color: #5c5270;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+}
+
+.events-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.events-list li {
+    background: #f8f5fc;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-left: 5px solid #a48ecb;
+    border-radius: 5px;
+}
+
+.event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.event-form input,
+.event-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.event-form button {
+    background-color: #5e4b7d;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.event-form button:hover {
+    background-color: #8c66c1;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.event-btn {
+    background-color: #e4d8f0;
+    color: #5e4b7d;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+}
+
+.event-btn:hover {
+    background-color: #d4c2eb;
+}

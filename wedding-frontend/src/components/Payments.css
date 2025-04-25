@@ -1,0 +1,89 @@
+.payments-container {
+    padding: 40px;
+    background-color: #fff;
+    font-family: sans-serif;
+}
+
+
+.payments-dropdown {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f6ff;
+    color: #5c5270;
+    font-weight: 500;
+}
+.payments-list {
+    margin-top: 20px;
+}
+
+.payments-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.payments-table th,
+.payments-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    background-color: #f9f6ff;
+}
+
+.payments-table th {
+    background-color: #e3d5f7;
+    color: #5c5270;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.payment-modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 300px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.payment-modal h3 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.payment-modal p {
+    margin: 5px 0;
+}
+
+.modal-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pay-btn, .cancel-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pay-btn {
+    background-color: #7c4dff;
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #ccc;
+    color: black;
+}

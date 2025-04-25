@@ -1,0 +1,136 @@
+/* Tasks.css */
+
+.tasks-container {
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+    color: #6b5b88; /* softened purple */
+}
+
+.tasks-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #7a699e; /* softened heading */
+}
+
+.tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.tasks-table th,
+.tasks-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e3dff0;
+}
+
+.tasks-table th {
+    background-color: #f2ecfa;
+    font-weight: bold;
+    color: #7a699e;
+}
+
+.tasks-table tr {
+    background: #faf7ff;
+}
+
+.tasks-table tr:hover {
+    background-color: #f1ebfa;
+}
+
+.btn-complete,
+.btn-delete {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: #d8cdee;
+    color: #5e4b7d;
+    font-weight: 500;
+    transition: background 0.2s ease-in-out;
+}
+
+.btn-complete:hover,
+.btn-delete:hover {
+    background-color: #cbb9e5;
+}
+
+.add-task-btn {
+    background-color: #cbb9e5;
+    color: #4d3b6e;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.2s ease-in-out;
+}
+
+.add-task-btn:hover {
+    background-color: #bfa5e0;
+}
+
+.add-task-form {
+    background-color: #faf7ff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.add-task-form h2 {
+    margin-bottom: 20px;
+    color: #6b5b88;
+}
+
+.add-task-form input,
+.add-task-form textarea,
+.add-task-form select {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #dcd2ec;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #5e4b7d;
+}
+
+.btn-add {
+    background-color: #bfa5e0;
+    color: #4d3b6e;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+.btn-add:hover {
+    background-color: #b399d9;
+}
+
+.btn-cancel {
+    background-color: #e9e0f5;
+    color: #5e4b7d;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background 0.2s ease-in-out;
+}
+
+.btn-cancel:hover {
+    background-color: #d8cfe7;
+}

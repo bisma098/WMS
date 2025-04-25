@@ -1,0 +1,42 @@
+.guests-container {
+    padding: 2rem;
+  }
+  
+  .guests-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+  }
+  
+  .guests-table th, .guests-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: center;
+    background-color: #f9f6ff;
+  }
+
+  .guests-table th {
+    background-color: #e3d5f7;
+    color: #5c5270;
+}
+  
+  .delete-btn {
+    background-color: #997fbd;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .add-guest-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 300px;
+  }
+  
+  .add-guest-form input {
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
