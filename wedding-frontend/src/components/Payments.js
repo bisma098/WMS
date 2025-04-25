@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Payments.css";
-
+//hi
 function Payments() {
     const navigate = useNavigate();
     const [payments, setPayments] = useState([]);
