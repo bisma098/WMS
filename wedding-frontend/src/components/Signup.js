@@ -22,7 +22,7 @@ function Signup() {
             });
 
             if (response.data.success) {
-                localStorage.setItem('tempUsername', username); // Save the username
+                localStorage.setItem('tempUsername', username);
                 navigate('/user-info'); // Redirect to User Info page
             } else {
                 setError(response.data.message || 'Signup failed');
@@ -69,7 +69,6 @@ function Signup() {
             </div>
 
             <div className="login-right">
-                {/* Background image handled via CSS */}
             </div>
         </div>
     );

@@ -17,7 +17,6 @@ function UserInfo() {
     const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
-    // Retrieve username from localStorage
     const [username, setUsername] = useState('');
 
 
@@ -26,7 +25,7 @@ function UserInfo() {
         if (storedUsername) {
             setUsername(storedUsername);
         } else {
-            navigate('/signup'); // redirect if no username
+            navigate('/signup');
         }
     }, [navigate]);
 
@@ -36,14 +35,14 @@ function UserInfo() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // prevent page reload
+        e.preventDefault();
         setError('');
         setSuccess('');
 
         try {
             const response = await axios.post('/user-details', {
-                username,     // from localStorage
-                ...form       // all the form fields
+                username,
+                ...form
             });
 
             console.log("User response:", response.data);

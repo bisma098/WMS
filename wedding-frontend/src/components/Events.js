@@ -12,7 +12,6 @@ function Events() {
     const [filter, setFilter] = useState("all");
     const navigate = useNavigate();
 
-    // Form State
     const [showForm, setShowForm] = useState(false);
     const [dateTime, setDateTime] = useState('');
     const [city, setCity] = useState('');
@@ -64,7 +63,7 @@ function Events() {
                 setCity('');
                 setGuests('');
                 setType('');
-                fetchEvents(); // Refresh event list
+                fetchEvents();
             }
         } catch (err) {
             const msg = err.response?.data?.message || "Error booking event";

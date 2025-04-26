@@ -47,7 +47,6 @@ const Profile = () => {
 
     const handleUpdateClick = async () => {
         if (readOnly) {
-            // Enable edit mode
             setReadOnly(false);
         } else {
             try {
@@ -62,7 +61,7 @@ const Profile = () => {
                 });
 
                 alert(res.data.message || "Update successful");
-                setReadOnly(true); // Back to view mode
+                setReadOnly(true);
             } catch (err) {
                 console.error("Update error:", err);
                 alert("Update failed!");

@@ -67,7 +67,6 @@ function Login() {
             </div>
 
             <div className="login-right">
-                {/* Background image will appear here via CSS */}
             </div>
         </div>
     );

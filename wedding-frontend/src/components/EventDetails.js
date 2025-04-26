@@ -8,7 +8,7 @@ const EventDetails = () => {
     const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
-    const [rating, setRating] = useState(0); // for user input
+    const [rating, setRating] = useState(0);
     const [rated, setRated] = useState(false);
 
     const fetchEventDetails = async () => {

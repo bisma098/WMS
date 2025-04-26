@@ -10,7 +10,7 @@ function Payments() {
     const [payments, setPayments] = useState([]);
     const [filter, setFilter] = useState("all");
     const [loadingPaymentId, setLoadingPaymentId] = useState(null);
-    const [selectedPayment, setSelectedPayment] = useState(null); // For modal
+    const [selectedPayment, setSelectedPayment] = useState(null);
     const userId = JSON.parse(localStorage.getItem("user"))?.UserID;
 
     useEffect(() => {
@@ -37,7 +37,7 @@ function Payments() {
     }, [filter, userId]);
 
     const handlePayNow = (payment) => {
-        setSelectedPayment(payment); // open modal
+        setSelectedPayment(payment);
     };
 
     const confirmPayment = async () => {
@@ -59,7 +59,7 @@ function Payments() {
                             : p
                     )
                 );
-                setSelectedPayment(null); // close modal
+                setSelectedPayment(null);
             } else {
                 alert(res.data.message || "Payment failed to update");
             }
@@ -126,7 +126,7 @@ function Payments() {
                 )}
             </div>
 
-            {/* Modal for payment confirmation */}
+
             {selectedPayment && (
                 <div className="modal-backdrop">
                     <div className="payment-modal">

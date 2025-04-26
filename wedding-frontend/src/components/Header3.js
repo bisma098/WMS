@@ -5,7 +5,7 @@ import './Header2.css';
 function Header3() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { eventId } = useParams(); // ✅ this must match route param name
+    const { eventId } = useParams();
 
     const base = `/event-details/${eventId}`;
 

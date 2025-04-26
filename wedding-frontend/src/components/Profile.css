@@ -1,70 +1,67 @@
-/* Profile.css */
-
 .profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 40px;
-  }
-  
-  .profile-box {
-    background-color: #ffffff;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .profile-title {
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 24px;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .profile-field {
-    margin-bottom: 18px;
-  }
-  
-  .profile-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 500;
-    color: #555;
-  }
-  
-  .profile-input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    background-color: #f9f9f9;
-    transition: border-color 0.2s;
-  }
-  
-  .profile-input:focus {
-    border-color: #9b59b6;
-    outline: none;
-    background-color: #fff;
-  }
-  
-  .profile-button {
-    display: block;
-    margin: 20px auto 0;
-    padding: 8px 20px;
-    font-size: 14px;
-    color: #fff;
-    background-color: #9b59b6;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .profile-button:hover {
-    background-color: #8e44ad;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.profile-box {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile-title {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+.profile-field {
+  margin-bottom: 18px;
+}
+
+.profile-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #555;
+}
+
+.profile-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.profile-input:focus {
+  border-color: #9b59b6;
+  outline: none;
+  background-color: #fff;
+}
+
+.profile-button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 8px 20px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #9b59b6;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-button:hover {
+  background-color: #8e44ad;
+}

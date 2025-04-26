@@ -78,9 +78,7 @@ h2 {
   font-weight: 500;
   cursor: pointer;
   display: inline-block;
-  /* allows width to shrink to fit text */
   width: auto;
-  /* makes sure it doesn't stretch */
   transition: background-color 0.2s ease;
 }
 

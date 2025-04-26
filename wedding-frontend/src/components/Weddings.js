@@ -31,7 +31,6 @@ function Weddings() {
             });
 
             if (res.data.success) {
-                // Re-fetch weddings from backend after successful booking
                 const refreshed = await axios.get(`/weddings/${user.UserID}`);
                 setWeddings(refreshed.data.weddings);
 

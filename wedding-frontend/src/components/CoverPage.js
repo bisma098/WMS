@@ -7,7 +7,7 @@ const CoverPage = () => {
 
     return (
         <div className="cover-page">
-            {/* Header */}
+
             <header className="cover-header">
                 <div className="title">Wedsync</div>
                 <div className="nav-buttons">
@@ -16,7 +16,7 @@ const CoverPage = () => {
                 </div>
             </header>
 
-            {/* Hero */}
+
             <section className="hero-section">
                 <div className="hero-content">
                     <img src="/assets/logo.png" alt="WedSync Logo" className="logo" />
@@ -25,7 +25,7 @@ const CoverPage = () => {
                 </div>
             </section>
 
-            {/* Services */}
+
             <section className="services-section">
                 <h2>Your wedding is about you — so are we</h2>
                 <div className="services-cards">

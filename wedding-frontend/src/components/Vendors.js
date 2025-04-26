@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Vendors.css'; // Style this however you like
+import './Vendors.css';
 
 function Vendors() {
     const { eventId } = useParams();
