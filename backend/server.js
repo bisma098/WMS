@@ -572,6 +572,7 @@ app.post("/rate-event", async (req, res) => {
     }
 });
 
+
 // Get all vendors for an event
 app.get("/event-vendors/:eventId", async (req, res) => {
     try {
