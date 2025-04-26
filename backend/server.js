@@ -429,7 +429,7 @@ app.get("/events-details/:eventID", async (req, res) => {
         );
 
         const query = `
-            SELECT w.Groom_Name, w.Bride_Name, e.[Type], e.[Date and Time], l.City + ', ' + l.Address AS Venue, e.No_Of_Guests, e.[Status]
+            SELECT w.Groom_Name, w.Bride_Name, e.[Type], e.[Date and Time], l.City + ', ' + l.Address AS Venue, e.No_Of_Guests, e.[Status],e.Rating
             FROM Event_Details e JOIN Wedding_Table w ON e.Wedding_ID = w.Wedding_ID 
             LEFT JOIN Locations l ON e.location_id = l.Location_ID WHERE e.Event_ID = @eventId ORDER BY e.[Date and Time]
         `;
@@ -535,7 +535,7 @@ app.put("/cancel-event", async (req, res) => {
     }
 });
 
-// Update Event Rating if Status is Completed and Rating is NULL
+// Update Event Rating if Status is Completed and Rating is NULL or 0
 app.post("/rate-event", async (req, res) => {
     try {
         const { eventId, rating } = req.body;
@@ -551,7 +551,9 @@ app.post("/rate-event", async (req, res) => {
         const updateQuery = `
             UPDATE Event_Details
             SET Rating = @rating
-            WHERE Event_ID = @eventId AND Status = 'Completed' AND Rating IS NULL;
+            WHERE Event_ID = @eventId 
+              AND Status = 'Completed' 
+              AND (Rating IS NULL OR Rating = 0);
         `;
 
         const result = await request.query(updateQuery);
