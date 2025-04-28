@@ -8,7 +8,7 @@ app.use(cors());
 const port = 5000;
 const config = {
     user: 'sa', // Replace with your SQL Server username
-    password: 'Mm755988', // Replace with your SQL Server password
+    password: 'bix098', // Replace with your SQL Server password
     server: 'localhost', // Replace with your server name
     database: 'WMS', // Replace with your database name
     options: {
@@ -1286,6 +1286,17 @@ app.post("/book-dj-vendor", async (req, res) => {
 });
 
 // ---- Catering Vendor ----
+
+// GET all catering vendors
+app.get('/available-catering-vendors', async (req, res) => {
+    try {
+        const result = await sql.query(`SELECT * FROM Catering_Vendor`);
+        res.status(200).json({ success: true, vendors: result.recordset });
+    } catch (error) {
+        console.error('Get Catering Vendors Error:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
 
 // Add Catering Vendor
 app.post('/add-catering-vendor', async (req, res) => {
