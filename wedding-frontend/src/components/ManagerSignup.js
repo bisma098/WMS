@@ -8,13 +8,11 @@ function ManagerSignup() {
     const [password, setPassword] = useState('');
     const [secretCode, setSecretCode] = useState('');
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        setSuccess('');
 
         try {
             const response = await axios.post('/manager-signup', {
@@ -24,10 +22,9 @@ function ManagerSignup() {
             });
 
             if (response.data.success) {
-                setSuccess('Manager registered successfully! You can now log in.');
-                setTimeout(() => {
-                    navigate('/manager-login');
-                }, 2000); // Redirect after short delay
+                // Save temporary username for profile filling
+                localStorage.setItem('tempManagerUsername', username);
+                navigate('/manager-info'); // Move to complete profile page
             } else {
                 setError(response.data.message || 'Signup failed');
             }
@@ -43,7 +40,6 @@ function ManagerSignup() {
                     <h1 className="logo">WedSync</h1>
                     <h2 className="signin-title">Manager Sign Up</h2>
                     {error && <p className="error-message">{error}</p>}
-                    {success && <p className="success-message">{success}</p>}
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">Username</label>
                         <input
