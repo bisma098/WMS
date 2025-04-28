@@ -8,7 +8,7 @@ app.use(cors());
 const port = 5000;
 const config = {
     user: 'sa', // Replace with your SQL Server username
-    password: 'Mm755988', // Replace with your SQL Server password
+    password: 'bix098', // Replace with your SQL Server password
     server: 'localhost', // Replace with your server name
     database: 'WMS', // Replace with your database name
     options: {
@@ -210,6 +210,57 @@ app.post("/user-details", async (req, res) => {
         res.status(500).json({ message: "Error updating user details" });
     }
 });
+
+app.post("/manager-info", async (req, res) => {
+    try {
+        const { username, firstName, lastName, phoneNo, alternatePhone, email } = req.body;
+
+        if (!username) {
+            return res.status(400).json({ message: "Username is required" });
+        }
+
+        // 1. Create a request to update manager info
+        const updateRequest = new sql.Request();
+        updateRequest.input("username", sql.VarChar, username);
+        updateRequest.input("firstName", sql.VarChar, firstName);
+        updateRequest.input("lastName", sql.VarChar, lastName);
+        updateRequest.input("phoneNo", sql.VarChar, phoneNo);
+        updateRequest.input("alternatePhone", sql.VarChar, alternatePhone);
+        updateRequest.input("email", sql.VarChar, email);
+
+        const updateQuery = `
+            UPDATE Managers 
+            SET First_Name = @firstName, 
+                Last_Name = @lastName, 
+                Phone_No = @phoneNo, 
+                Alternate_Phone_no = @alternatePhone, 
+                Email = @email
+            WHERE UserName = @username
+        `;
+
+        await updateRequest.query(updateQuery);
+
+        const fetchRequest = new sql.Request();
+        fetchRequest.input("username", sql.VarChar, username);
+
+        const result = await fetchRequest.query(`
+            SELECT UserID, UserName 
+            FROM Managers 
+            WHERE UserName = @username
+        `);
+
+        res.status(200).json({
+            success: true,
+            message: "Manager details updated successfully",
+            manager: result.recordset[0]
+        });
+
+    } catch (err) {
+        console.error("Manager details error:", err);
+        res.status(500).json({ message: "Error updating manager details" });
+    }
+});
+
 // View user details by username
 app.get("/view-user-details/:username", async (req, res) => {
     try {
