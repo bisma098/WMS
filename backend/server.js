@@ -8,7 +8,7 @@ app.use(cors());
 const port = 5000;
 const config = {
     user: 'sa', // Replace with your SQL Server username
-    password: 'bix098', // Replace with your SQL Server password
+    password: 'Mm755988', // Replace with your SQL Server password
     server: 'localhost', // Replace with your server name
     database: 'WMS', // Replace with your database name
     options: {
@@ -1282,6 +1282,245 @@ app.post("/book-dj-vendor", async (req, res) => {
     } catch (err) {
         console.error("Error booking dj vendor:", err.message, err);
         res.status(500).json({ success: false, message: "Error booking dj vendor" });
+    }
+});
+
+// ---- Catering Vendor ----
+
+// Add Catering Vendor
+app.post('/add-catering-vendor', async (req, res) => {
+    const { name, contact_no, city, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            INSERT INTO Catering_Vendor (Name, Contact_No, City, Email, Instagram, Cost, Rating)
+            VALUES ('${name}', '${contact_no}', '${city}', '${email}', '${instagram}', ${cost}, ${rating})
+        `);
+        res.status(200).json({ message: 'Catering Vendor added successfully' });
+    } catch (error) {
+        console.error('Add Catering Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update Catering Vendor
+app.put('/update-catering-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    const { name, contact_no, city, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            UPDATE Catering_Vendor
+            SET Name = '${name}', Contact_No = '${contact_no}', City = '${city}', Email = '${email}',
+                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
+            WHERE Vendor_ID = ${vendorId}
+        `);
+        res.status(200).json({ message: 'Catering Vendor updated successfully' });
+    } catch (error) {
+        console.error('Update Catering Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Delete Catering Vendor
+app.delete('/delete-catering-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    try {
+        await sql.query(`DELETE FROM Catering_Vendor WHERE Vendor_ID = ${vendorId}`);
+        res.status(200).json({ message: 'Catering Vendor deleted successfully' });
+    } catch (error) {
+        console.error('Delete Catering Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+// ---- Decor Vendor ----
+
+// Add Decor Vendor
+app.post('/add-decor-vendor', async (req, res) => {
+    const { name, contact_no, city, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            INSERT INTO Decor_Vendor (Name, Contact_No, City, Email, Instagram, Cost, Rating)
+            VALUES ('${name}', '${contact_no}', '${city}', '${email}', '${instagram}', ${cost}, ${rating})
+        `);
+        res.status(200).json({ message: 'Decor Vendor added successfully' });
+    } catch (error) {
+        console.error('Add Decor Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update Decor Vendor
+app.put('/update-decor-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    const { name, contact_no, city, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            UPDATE Decor_Vendor
+            SET Name = '${name}', Contact_No = '${contact_no}', City = '${city}', Email = '${email}',
+                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
+            WHERE Vendor_ID = ${vendorId}
+        `);
+        res.status(200).json({ message: 'Decor Vendor updated successfully' });
+    } catch (error) {
+        console.error('Update Decor Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Delete Decor Vendor
+app.delete('/delete-decor-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    try {
+        await sql.query(`DELETE FROM Decor_Vendor WHERE Vendor_ID = ${vendorId}`);
+        res.status(200).json({ message: 'Decor Vendor deleted successfully' });
+    } catch (error) {
+        console.error('Delete Decor Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+// ---- DJ Vendor ----
+
+// Add DJ Vendor
+app.post('/add-dj-vendor', async (req, res) => {
+    const { name, contact_no, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            INSERT INTO DJ_Vendors (Name, Contact_No, Email, Instagram, Cost, Rating)
+            VALUES ('${name}', '${contact_no}', '${email}', '${instagram}', ${cost}, ${rating})
+        `);
+        res.status(200).json({ message: 'DJ Vendor added successfully' });
+    } catch (error) {
+        console.error('Add DJ Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update DJ Vendor
+app.put('/update-dj-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    const { name, contact_no, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            UPDATE DJ_Vendors
+            SET Name = '${name}', Contact_No = '${contact_no}', Email = '${email}',
+                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
+            WHERE Vendor_ID = ${vendorId}
+        `);
+        res.status(200).json({ message: 'DJ Vendor updated successfully' });
+    } catch (error) {
+        console.error('Update DJ Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Delete DJ Vendor
+app.delete('/delete-dj-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    try {
+        await sql.query(`DELETE FROM DJ_Vendors WHERE Vendor_ID = ${vendorId}`);
+        res.status(200).json({ message: 'DJ Vendor deleted successfully' });
+    } catch (error) {
+        console.error('Delete DJ Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+// ---- Hall Vendor ----
+
+// Add Hall Vendor
+app.post('/add-hall-vendor', async (req, res) => {
+    const { location_id, name, contact_no, cost, capacity, rating } = req.body;
+    try {
+        await sql.query(`
+            INSERT INTO Hall_Vendor (Location_ID, Name, Contact_No, Cost, Capacity, Rating)
+            VALUES (${location_id}, '${name}', '${contact_no}', ${cost}, ${capacity}, ${rating})
+        `);
+        res.status(200).json({ message: 'Hall Vendor added successfully' });
+    } catch (error) {
+        console.error('Add Hall Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update Hall Vendor
+app.put('/update-hall-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    const { location_id, name, contact_no, cost, capacity, rating } = req.body;
+    try {
+        await sql.query(`
+            UPDATE Hall_Vendor
+            SET Location_ID = ${location_id}, Name = '${name}', Contact_No = '${contact_no}',
+                Cost = ${cost}, Capacity = ${capacity}, Rating = ${rating}
+            WHERE Vendor_ID = ${vendorId}
+        `);
+        res.status(200).json({ message: 'Hall Vendor updated successfully' });
+    } catch (error) {
+        console.error('Update Hall Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Delete Hall Vendor
+app.delete('/delete-hall-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    try {
+        await sql.query(`DELETE FROM Hall_Vendor WHERE Vendor_ID = ${vendorId}`);
+        res.status(200).json({ message: 'Hall Vendor deleted successfully' });
+    } catch (error) {
+        console.error('Delete Hall Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+// ---- Photography Vendor ----
+
+// Add Photography Vendor
+app.post('/add-photography-vendor', async (req, res) => {
+    const { name, contact_no, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            INSERT INTO Photography_Vendor (Name, Contact_No, Email, Instagram, Cost, Rating)
+            VALUES ('${name}', '${contact_no}', '${email}', '${instagram}', ${cost}, ${rating})
+        `);
+        res.status(200).json({ message: 'Photography Vendor added successfully' });
+    } catch (error) {
+        console.error('Add Photography Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Update Photography Vendor
+app.put('/update-photography-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    const { name, contact_no, email, instagram, cost, rating } = req.body;
+    try {
+        await sql.query(`
+            UPDATE Photography_Vendor
+            SET Name = '${name}', Contact_No = '${contact_no}', Email = '${email}',
+                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
+            WHERE Vendor_ID = ${vendorId}
+        `);
+        res.status(200).json({ message: 'Photography Vendor updated successfully' });
+    } catch (error) {
+        console.error('Update Photography Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Delete Photography Vendor
+app.delete('/delete-photography-vendor/:vendorId', async (req, res) => {
+    const { vendorId } = req.params;
+    try {
+        await sql.query(`DELETE FROM Photography_Vendor WHERE Vendor_ID = ${vendorId}`);
+        res.status(200).json({ message: 'Photography Vendor deleted successfully' });
+    } catch (error) {
+        console.error('Delete Photography Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
