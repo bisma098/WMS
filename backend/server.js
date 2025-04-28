@@ -1301,25 +1301,6 @@ app.post('/add-catering-vendor', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
-// Update Catering Vendor
-app.put('/update-catering-vendor/:vendorId', async (req, res) => {
-    const { vendorId } = req.params;
-    const { name, contact_no, city, email, instagram, cost, rating } = req.body;
-    try {
-        await sql.query(`
-            UPDATE Catering_Vendor
-            SET Name = '${name}', Contact_No = '${contact_no}', City = '${city}', Email = '${email}',
-                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
-            WHERE Vendor_ID = ${vendorId}
-        `);
-        res.status(200).json({ message: 'Catering Vendor updated successfully' });
-    } catch (error) {
-        console.error('Update Catering Vendor Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 // Delete Catering Vendor
 app.delete('/delete-catering-vendor/:vendorId', async (req, res) => {
     const { vendorId } = req.params;
@@ -1346,24 +1327,6 @@ app.post('/add-decor-vendor', async (req, res) => {
         res.status(200).json({ message: 'Decor Vendor added successfully' });
     } catch (error) {
         console.error('Add Decor Vendor Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Update Decor Vendor
-app.put('/update-decor-vendor/:vendorId', async (req, res) => {
-    const { vendorId } = req.params;
-    const { name, contact_no, city, email, instagram, cost, rating } = req.body;
-    try {
-        await sql.query(`
-            UPDATE Decor_Vendor
-            SET Name = '${name}', Contact_No = '${contact_no}', City = '${city}', Email = '${email}',
-                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
-            WHERE Vendor_ID = ${vendorId}
-        `);
-        res.status(200).json({ message: 'Decor Vendor updated successfully' });
-    } catch (error) {
-        console.error('Update Decor Vendor Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -1398,24 +1361,6 @@ app.post('/add-dj-vendor', async (req, res) => {
     }
 });
 
-// Update DJ Vendor
-app.put('/update-dj-vendor/:vendorId', async (req, res) => {
-    const { vendorId } = req.params;
-    const { name, contact_no, email, instagram, cost, rating } = req.body;
-    try {
-        await sql.query(`
-            UPDATE DJ_Vendors
-            SET Name = '${name}', Contact_No = '${contact_no}', Email = '${email}',
-                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
-            WHERE Vendor_ID = ${vendorId}
-        `);
-        res.status(200).json({ message: 'DJ Vendor updated successfully' });
-    } catch (error) {
-        console.error('Update DJ Vendor Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 // Delete DJ Vendor
 app.delete('/delete-dj-vendor/:vendorId', async (req, res) => {
     const { vendorId } = req.params;
@@ -1442,24 +1387,6 @@ app.post('/add-hall-vendor', async (req, res) => {
         res.status(200).json({ message: 'Hall Vendor added successfully' });
     } catch (error) {
         console.error('Add Hall Vendor Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-// Update Hall Vendor
-app.put('/update-hall-vendor/:vendorId', async (req, res) => {
-    const { vendorId } = req.params;
-    const { location_id, name, contact_no, cost, capacity, rating } = req.body;
-    try {
-        await sql.query(`
-            UPDATE Hall_Vendor
-            SET Location_ID = ${location_id}, Name = '${name}', Contact_No = '${contact_no}',
-                Cost = ${cost}, Capacity = ${capacity}, Rating = ${rating}
-            WHERE Vendor_ID = ${vendorId}
-        `);
-        res.status(200).json({ message: 'Hall Vendor updated successfully' });
-    } catch (error) {
-        console.error('Update Hall Vendor Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -1494,24 +1421,6 @@ app.post('/add-photography-vendor', async (req, res) => {
     }
 });
 
-// Update Photography Vendor
-app.put('/update-photography-vendor/:vendorId', async (req, res) => {
-    const { vendorId } = req.params;
-    const { name, contact_no, email, instagram, cost, rating } = req.body;
-    try {
-        await sql.query(`
-            UPDATE Photography_Vendor
-            SET Name = '${name}', Contact_No = '${contact_no}', Email = '${email}',
-                Instagram = '${instagram}', Cost = ${cost}, Rating = ${rating}
-            WHERE Vendor_ID = ${vendorId}
-        `);
-        res.status(200).json({ message: 'Photography Vendor updated successfully' });
-    } catch (error) {
-        console.error('Update Photography Vendor Error:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
 // Delete Photography Vendor
 app.delete('/delete-photography-vendor/:vendorId', async (req, res) => {
     const { vendorId } = req.params;
@@ -1520,6 +1429,64 @@ app.delete('/delete-photography-vendor/:vendorId', async (req, res) => {
         res.status(200).json({ message: 'Photography Vendor deleted successfully' });
     } catch (error) {
         console.error('Delete Photography Vendor Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+// ---- View Catering Vendors ----
+app.get('/catering-vendors', async (req, res) => {
+    try {
+        const result = await sql.query(`SELECT * FROM Catering_Vendor`);
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error('View Catering Vendors Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// ---- View Decor Vendors ----
+app.get('/decor-vendors', async (req, res) => {
+    try {
+        const result = await sql.query(`SELECT * FROM Decor_Vendor`);
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error('View Decor Vendors Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// ---- View DJ Vendors ----
+app.get('/dj-vendors', async (req, res) => {
+    try {
+        const result = await sql.query(`SELECT * FROM DJ_Vendors`);
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error('View DJ Vendors Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// ---- View Hall Vendors ----
+app.get('/hall-vendors', async (req, res) => {
+    try {
+        const result = await sql.query(`
+            SELECT hv.*, l.City AS Location_City
+            FROM Hall_Vendor hv
+            JOIN Locations l ON hv.Location_ID = l.Location_ID
+        `);
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error('View Hall Vendors Error:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// ---- View Photography Vendors ----
+app.get('/photography-vendors', async (req, res) => {
+    try {
+        const result = await sql.query(`SELECT * FROM Photography_Vendor`);
+        res.status(200).json(result.recordset);
+    } catch (error) {
+        console.error('View Photography Vendors Error:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

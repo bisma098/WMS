@@ -27,6 +27,11 @@ import ManagerDashboard from './components/ManagerDashboard';
 import ManagerLogin from './components/ManagerLogin';
 import ManagerSignup from './components/ManagerSignup';
 import ManagerInfo from './components/ManagerInfo';
+import CateringVendorsManager from './components/CateringVendorsManager';
+import DecorVendorsManager from './components/DecorVendorsManager';
+import HallVendorsManager from './components/HallVendorsManager';
+import DjVendorsManager from './components/DjVendorsManager';
+import PhotographyVendorsManager from './components/PhotographyVendorsManager';
 
 
 function App() {
@@ -46,6 +51,11 @@ function App() {
         <Route path="/manager-signup" element={<ManagerSignup />} />
         <Route path="/manager-info" element={<ManagerInfo />} />
         <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+        <Route path="/manager-dashboard/catering" element={<CateringVendorsManager />} />
+        <Route path="/manager-dashboard/decor" element={<DecorVendorsManager />} />
+        <Route path="/manager-dashboard/hall" element={<HallVendorsManager />} />
+        <Route path="/manager-dashboard/dj" element={<DjVendorsManager />} />
+        <Route path="/manager-dashboard/photography" element={<PhotographyVendorsManager />} />
 
         {/* Pages with Main Header Only */}
         <Route element={<MainLayout />}>
