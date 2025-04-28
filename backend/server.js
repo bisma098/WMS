@@ -8,7 +8,7 @@ app.use(cors());
 const port = 5000;
 const config = {
     user: 'sa', // Replace with your SQL Server username
-    password: 'bix098', // Replace with your SQL Server password
+    password: 'Mm755988', // Replace with your SQL Server password
     server: 'localhost', // Replace with your server name
     database: 'WMS', // Replace with your database name
     options: {
@@ -92,6 +92,79 @@ app.post("/signup", async (req, res) => {
     } catch (err) {
         console.error("Signup error:", err);
         res.status(500).json({ message: "Server error during signup" + err.message });
+    }
+});
+app.post("/manager-login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ message: "Username and password are required" });
+        }
+        const request = new sql.Request();
+
+        request.input("username", sql.VarChar, username);
+        request.input("password", sql.VarChar, password);
+
+        const loginQuery = `
+            SELECT UserID, UserName 
+            FROM Managers 
+            WHERE UserName = @username 
+            AND Password = HASHBYTES('SHA2_256', @password)
+        `;
+
+        const result = await request.query(loginQuery);
+
+        if (result.recordset.length > 0) {
+            res.json({ success: true, message: "Login successful", user: result.recordset[0] });
+        } else {
+            res.status(401).json({ success: false, message: "Invalid username or password" });
+        }
+
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error logging in: " + err.message });
+    }
+});
+app.post("/manager-signup", async (req, res) => {
+    try {
+        const { username, password, secretCode } = req.body;
+
+        const correctSecret = "WEDSYNC123";  // secret code for managers
+
+        if (!username || !password || !secretCode) {
+            return res.status(400).json({ message: "Username, password and secret code are required" });
+        }
+
+        if (secretCode !== correctSecret) {
+            return res.status(403).json({ message: "Invalid secret code. You are not authorized to create a manager account." });
+        }
+
+        const request = new sql.Request();
+        request.input("username", sql.VarChar, username);
+
+        // Check if username already exists
+        const checkUserQuery = `
+            SELECT UserID FROM Managers WHERE UserName = @username
+        `;
+        const existingUser = await request.query(checkUserQuery);
+
+        if (existingUser.recordset.length > 0) {
+            return res.status(400).json({ message: "Username already taken" });
+        }
+
+        request.input("password", sql.VarChar, password);
+
+        // Insert new Manager
+        const insertQuery = `
+            INSERT INTO Managers (UserName, Password)
+            VALUES (@username, HASHBYTES('SHA2_256', @password))
+        `;
+        await request.query(insertQuery);
+
+        res.status(201).json({ success: true, message: "Manager registered successfully" });
+
+    } catch (err) {
+        console.error("Signup error:", err);
+        res.status(500).json({ message: "Server error during signup: " + err.message });
     }
 });
 

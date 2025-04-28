@@ -2,20 +2,24 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CoverPage.css';
 import Footer from './Footer2';
+
 const CoverPage = () => {
     const navigate = useNavigate();
 
     return (
         <div className="cover-page">
-
             <header className="cover-header">
                 <div className="title">Wedsync</div>
                 <div className="nav-buttons">
-                    <button onClick={() => navigate('/login')}>Login</button>
-                    <button onClick={() => navigate('/signup')}>SignUp</button>
+                    {/* User buttons */}
+                    <button onClick={() => navigate('/login')}>User Login</button>
+                    <button onClick={() => navigate('/signup')}>User SignUp</button>
+
+                    {/* Manager buttons */}
+                    <button onClick={() => navigate('/manager-login')}>Manager Login</button>
+                    <button onClick={() => navigate('/manager-signup')}>Manager SignUp</button>
                 </div>
             </header>
-
 
             <section className="hero-section">
                 <div className="hero-content">
@@ -24,7 +28,6 @@ const CoverPage = () => {
                     <p>All-in-one wedding planning made simple with personalized tools, vendors, and love.</p>
                 </div>
             </section>
-
 
             <section className="services-section">
                 <h2>Your wedding is about you — so are we</h2>
@@ -77,8 +80,6 @@ const CoverPage = () => {
                     </div>
                 </div>
             </section>
-
-
 
             <Footer />
         </div>

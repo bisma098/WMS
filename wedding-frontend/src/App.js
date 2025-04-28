@@ -21,6 +21,9 @@ import DecorVendors from './components/DecorVendors';
 import DjVendors from './components/DjVendors';
 import CoverPage from './components/CoverPage';
 
+// NEW imports
+import ManagerLogin from './components/ManagerLogin';
+import ManagerSignup from './components/ManagerSignup';
 
 function App() {
   return (
@@ -32,6 +35,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/user-info" element={<UserInfo />} />
+
+        {/* Manager Login/Signup */}
+        <Route path="/manager-login" element={<ManagerLogin />} />
+        <Route path="/manager-signup" element={<ManagerSignup />} />
 
         {/* Pages with Main Header Only */}
         <Route element={<MainLayout />}>
@@ -47,7 +54,7 @@ function App() {
 
           {/* Pages with Main Header + Header2 */}
           <Route path="/event-details/:eventId" element={<SubLayout2 />}>
-            <Route index element={<EventDetails />} /> {/* this loads on base path */}
+            <Route index element={<EventDetails />} /> 
             <Route path="guests" element={<Guests />} />
             <Route path="vendors" element={<Vendors />} />
             <Route path="/event-details/:eventId/vendors/book/hall" element={<HallVendors />} />
@@ -58,9 +65,8 @@ function App() {
           </Route>
         </Route>
 
-
       </Routes>
-    </Router >
+    </Router>
   );
 }
 
