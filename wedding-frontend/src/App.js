@@ -20,6 +20,7 @@ import PhotographyVendors from './components/PhotographyVendors';
 import DecorVendors from './components/DecorVendors';
 import DjVendors from './components/DjVendors';
 import CoverPage from './components/CoverPage';
+import ManagerDashboard from './components/ManagerDashboard';
 
 
 // NEW imports
@@ -38,11 +39,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/user-info" element={<UserInfo />} />
+        <Route path="/user-info" element={<UserInfo />} />
 
-        {/* Manager Login/Signup */}
+        {/* Manager  */}
         <Route path="/manager-login" element={<ManagerLogin />} />
         <Route path="/manager-signup" element={<ManagerSignup />} />
         <Route path="/manager-info" element={<ManagerInfo />} />
+        <Route path="/manager-dashboard" element={<ManagerDashboard />} />
 
         {/* Pages with Main Header Only */}
         <Route element={<MainLayout />}>
