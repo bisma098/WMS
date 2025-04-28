@@ -2,7 +2,6 @@ import React from 'react';
 import './Footer.css';
 
 function Footer() {
-    const user = JSON.parse(localStorage.getItem('user'));
 
     return (
         <footer className="footer">
@@ -22,7 +21,7 @@ function Footer() {
             </div>
 
             <div className="footer-bottom">
-                <p>&copy; {new Date().getFullYear()} WedSync. All rights reserved.</p>
+                <p>&copy; 2025 WedSync. All rights reserved.</p>
             </div>
         </footer>
     );
