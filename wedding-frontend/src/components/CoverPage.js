@@ -1,25 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CoverPage.css';
 import Footer from './Footer2';
 
 const CoverPage = () => {
     const navigate = useNavigate();
+    const [showUserOptions, setShowUserOptions] = useState(false);
+    const [showManagerOptions, setShowManagerOptions] = useState(false);
 
     return (
         <div className="cover-page">
             <header className="cover-header">
                 <div className="title">Wedsync</div>
-                <div className="nav-buttons">
-                    {/* User buttons */}
-                    <button onClick={() => navigate('/login')}>User Login</button>
-                    <button onClick={() => navigate('/signup')}>User SignUp</button>
 
-                    {/* Manager buttons */}
-                    <button onClick={() => navigate('/manager-login')}>Manager Login</button>
-                    <button onClick={() => navigate('/manager-signup')}>Manager SignUp</button>
+                <div className="nav-buttons">
+                    <div className="dropdown">
+                        <button onClick={() => {
+                            setShowUserOptions(!showUserOptions);
+                            setShowManagerOptions(false);
+                        }}>
+                            User
+                        </button>
+                        {showUserOptions && (
+                            <div className="dropdown-menu">
+                                <button onClick={() => navigate('/login')}>Login</button>
+                                <button onClick={() => navigate('/signup')}>SignUp</button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="dropdown">
+                        <button onClick={() => {
+                            setShowManagerOptions(!showManagerOptions);
+                            setShowUserOptions(false);
+                        }}>
+                            Manager
+                        </button>
+                        {showManagerOptions && (
+                            <div className="dropdown-menu">
+                                <button onClick={() => navigate('/manager-login')}>Login</button>
+                                <button onClick={() => navigate('/manager-signup')}>SignUp</button>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </header>
+
+            {/* --- Other sections below --- */}
 
             <section className="hero-section">
                 <div className="hero-content">
