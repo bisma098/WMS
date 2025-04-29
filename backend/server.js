@@ -2,18 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const sql = require('mssql');
 const app = express();
-const bcrypt = require("bcrypt") //bcrypt backage for hashing passwords
 
 app.use(cors());
 const port = 5000;
 const config = {
-    user: 'sa', // Replace with your SQL Server username
-    password: 'bix098', // Replace with your SQL Server password
-    server: 'localhost', // Replace with your server name
-    database: 'WMS', // Replace with your database name
+    user: 'sa',
+    password: 'bix098',
+    server: 'localhost',
+    database: 'WMS',
     options: {
-        encrypt: true, // Use this if you're on Windows Azure
-        trustServerCertificate: true // Use this to trust the self-signed certificate
+        encrypt: true,
+        trustServerCertificate: true
     }
 };
 
@@ -94,6 +93,8 @@ app.post("/signup", async (req, res) => {
         res.status(500).json({ message: "Server error during signup" + err.message });
     }
 });
+
+//manager-login
 app.post("/manager-login", async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -124,6 +125,8 @@ app.post("/manager-login", async (req, res) => {
         res.status(500).json({ success: false, message: "Error logging in: " + err.message });
     }
 });
+
+//manager-signup
 app.post("/manager-signup", async (req, res) => {
     try {
         const { username, password, secretCode } = req.body;
@@ -168,6 +171,7 @@ app.post("/manager-signup", async (req, res) => {
     }
 });
 
+//enter user info on signup
 app.post("/user-details", async (req, res) => {
     try {
         const { username, firstName, lastName, phoneNo, alternatePhone, email, address } = req.body;
@@ -176,7 +180,7 @@ app.post("/user-details", async (req, res) => {
             return res.status(400).json({ message: "Username is required" });
         }
 
-        // 1. Create a request to update user info
+
         const updateRequest = new sql.Request();
         updateRequest.input("username", sql.VarChar, username);
         updateRequest.input("firstName", sql.VarChar, firstName);
@@ -211,6 +215,7 @@ app.post("/user-details", async (req, res) => {
     }
 });
 
+//enter manager info on new signup
 app.post("/manager-info", async (req, res) => {
     try {
         const { username, firstName, lastName, phoneNo, alternatePhone, email } = req.body;
@@ -219,7 +224,6 @@ app.post("/manager-info", async (req, res) => {
             return res.status(400).json({ message: "Username is required" });
         }
 
-        // 1. Create a request to update manager info
         const updateRequest = new sql.Request();
         updateRequest.input("username", sql.VarChar, username);
         updateRequest.input("firstName", sql.VarChar, firstName);
@@ -261,6 +265,7 @@ app.post("/manager-info", async (req, res) => {
     }
 });
 
+//view details of a manager(manager profile)
 app.get("/view-manager-details/:username", async (req, res) => {
     try {
         const username = req.params.username;
@@ -303,6 +308,8 @@ app.get("/view-manager-details/:username", async (req, res) => {
         });
     }
 });
+
+//update manager profiles(edit profile)
 app.post("/manager-details", async (req, res) => {
     try {
         const { username, firstName, lastName, phoneNo, alternatePhone, email } = req.body;
@@ -388,6 +395,7 @@ app.get("/view-user-details/:username", async (req, res) => {
         });
     }
 });
+
 //view all weddings
 // Get all weddings for a specific UserID
 app.get("/weddings/:userId", async (req, res) => {
@@ -454,6 +462,7 @@ app.post("/book-wedding", async (req, res) => {
         res.status(500).json({ message: "Error booking wedding" });
     }
 });
+
 // GET Wedding Title by Wedding_ID
 app.get("/wedding-title/:weddingId", async (req, res) => {
     try {
@@ -478,7 +487,8 @@ app.get("/wedding-title/:weddingId", async (req, res) => {
         res.status(500).json({ message: "Server error: " + err.message });
     }
 });
-//get all events of a wedding
+
+//Get all events of a wedding
 app.get("/events/:weddingId", async (req, res) => {
     try {
         const weddingId = req.params.weddingId;
@@ -570,7 +580,7 @@ app.post("/book-event", async (req, res) => {
         const checkQuery = `
             SELECT COUNT(*) AS EventCount 
             FROM Event_Details 
-            WHERE Wedding_ID = @weddingID AND [Type] = @type
+            WHERE Wedding_ID = @weddingID AND [Type] = @type AND @type<>'Others'
         `;
 
         const checkResult = await request.query(checkQuery);
@@ -693,55 +703,6 @@ app.get("/upcoming-events/:userId", async (req, res) => {
     }
 });
 
-// Cancel an event 
-app.put("/cancel-event", async (req, res) => {
-    try {
-        const { eventId } = req.body;
-
-        if (!eventId) {
-            return res.status(400).json({
-                success: false,
-                message: "Event ID is required"
-            });
-        }
-
-        const request = new sql.Request();
-        request.input("eventId", sql.Int, eventId);
-
-        const updateQuery = `
-            UPDATE Event_Details
-            SET Status = 'Cancelled'
-            WHERE Event_ID = @eventId 
-            AND Status = 'Upcoming'
-        `;
-
-        const result = await request.query(updateQuery);
-
-        if (result.rowsAffected[0] === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Event not found or not in 'Upcoming' status"
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "Event cancelled successfully",
-            eventId: eventId
-        });
-
-    } catch (err) {
-        console.error("Error cancelling event:", {
-            message: err.message,
-            stack: err.stack,
-            sqlError: err.originalError?.info?.message
-        });
-        res.status(500).json({
-            success: false,
-            message: "Error cancelling event: " + err.message
-        });
-    }
-});
 
 // Update Event Rating if Status is Completed and Rating is NULL or 0
 app.post("/rate-event", async (req, res) => {
@@ -1138,14 +1099,14 @@ app.post("/book-hall-vendor", async (req, res) => {
         request.input("eventId", sql.Int, eventId);
         request.input("hallVendorId", sql.Int, hallVendorId);
 
-        // 1. Update Vendor_Bookings
+        // Update Vendor_Bookings
         await request.query(`
             UPDATE Vendor_Bookings
             SET Hall_Vendor_ID = @hallVendorId
             WHERE Event_id = @eventId;
         `);
 
-        // 2. Insert into Payments
+        // Insert into Payments
         await request.query(`
             INSERT INTO Payments (Wedding_ID, Event_ID, Vendor_Type, Cost, Payment_Status, Due_Date)
             VALUES (
@@ -1158,7 +1119,7 @@ app.post("/book-hall-vendor", async (req, res) => {
             );
         `);
 
-        // 3. Update Event Location
+        // Update Event Location
         await request.query(`
             UPDATE Event_Details
             SET location_id = (SELECT Location_ID FROM Hall_Vendor WHERE Vendor_ID = @hallVendorId)
@@ -1248,7 +1209,6 @@ app.post("/book-catering-vendor", async (req, res) => {
 });
 
 
-
 // Book Photography Vendor for an Event
 app.post("/book-photography-vendor", async (req, res) => {
     try {
@@ -1261,14 +1221,14 @@ app.post("/book-photography-vendor", async (req, res) => {
         request.input("eventId", sql.Int, eventId);
         request.input("photographyVendorId", sql.Int, photographyVendorId);
 
-        // 1. Update Vendor_Bookings
+        // Update Vendor_Bookings
         await request.query(`
             UPDATE Vendor_Bookings
             SET Photography_Vendor_ID = @photographyVendorId
             WHERE Event_id = @eventId;
         `);
 
-        // 2. Insert into Payments
+        // Insert into Payments
         await request.query(`
             INSERT INTO Payments (Wedding_ID, Event_ID, Vendor_Type, Cost, Payment_Status, Due_Date)
             VALUES (
@@ -1301,14 +1261,14 @@ app.post("/book-decor-vendor", async (req, res) => {
         request.input("eventId", sql.Int, eventId);
         request.input("decorVendorId", sql.Int, decorVendorId);
 
-        // 1. Update Vendor_Bookings
+        // Update Vendor_Bookings
         await request.query(`
             UPDATE Vendor_Bookings
             SET Decor_Vendor_ID = @decorVendorId
             WHERE Event_id = @eventId;
         `);
 
-        // 2. Insert into Payments
+        // Insert into Payments
         await request.query(`
             INSERT INTO Payments (Wedding_ID, Event_ID, Vendor_Type, Cost, Payment_Status, Due_Date)
             VALUES (
@@ -1341,14 +1301,14 @@ app.post("/book-dj-vendor", async (req, res) => {
         request.input("eventId", sql.Int, eventId);
         request.input("djVendorId", sql.Int, djVendorId);
 
-        // 1. Update Vendor_Bookings
+        // Update Vendor_Bookings
         await request.query(`
             UPDATE Vendor_Bookings
             SET DJ_Vendor_ID = @djVendorId
             WHERE Event_id = @eventId;
         `);
 
-        // 2. Insert into Payments
+        // Insert into Payments
         await request.query(`
             INSERT INTO Payments (Wedding_ID, Event_ID, Vendor_Type, Cost, Payment_Status, Due_Date)
             VALUES (
@@ -1369,9 +1329,9 @@ app.post("/book-dj-vendor", async (req, res) => {
     }
 });
 
+
+//VENDOR MANAGEMENT FOR MANAGERS
 // ---- Catering Vendor ----
-
-
 // Add Catering Vendor
 app.post('/add-catering-vendor', async (req, res) => {
     const { name, contact_no, city, email, instagram, cost, rating } = req.body;
@@ -1400,7 +1360,6 @@ app.delete('/delete-catering-vendor/:vendorId', async (req, res) => {
 
 
 // ---- Decor Vendor ----
-
 // Add Decor Vendor
 app.post('/add-decor-vendor', async (req, res) => {
     const { name, contact_no, city, email, instagram, cost, rating } = req.body;
@@ -1430,7 +1389,6 @@ app.delete('/delete-decor-vendor/:vendorId', async (req, res) => {
 
 
 // ---- DJ Vendor ----
-
 // Add DJ Vendor
 app.post('/add-dj-vendor', async (req, res) => {
     const { name, contact_no, email, instagram, cost, rating } = req.body;
@@ -1687,7 +1645,6 @@ app.get("/due-payments/:userId", async (req, res) => {
             WHERE w.UserID = @userId AND p.Payment_Status IN ('Pending', 'Overdue') ORDER BY p.Due_Date;
         `;
         const result = await request.query(query);
-        // Format the dates for better readability
         const formattedPayments = result.recordset.map(payment => ({
             ...payment,
             Due_Date: payment.Due_Date
@@ -1845,7 +1802,7 @@ app.get("/user-tasks/:userId", async (req, res) => {
 });
 
 
-// Route to update task status
+// Update task status
 app.put("/update-task", async (req, res) => {
     try {
         const { taskId } = req.body;
@@ -1868,7 +1825,6 @@ app.put("/update-task", async (req, res) => {
             AND Status != 'Completed';
         `);
 
-        // Check how many rows were affected
         if (result.rowsAffected[0] > 0) {
             return res.status(200).json({
                 success: true,
@@ -1902,7 +1858,7 @@ app.post("/addTask", async (req, res) => {
         const request = new sql.Request();
         request.input("weddingID", sql.Int, weddingID);
         request.input("taskName", sql.VarChar, taskName);
-        request.input("description", sql.VarChar, description || null); // Handle null descriptions
+        request.input("description", sql.VarChar, description || null);
         request.input("status", sql.VarChar, status);
         request.input("dueDate", sql.Date, dueDate);
 
@@ -1914,7 +1870,6 @@ app.post("/addTask", async (req, res) => {
             return res.status(404).json({ message: "Wedding not found" });
         }
 
-        // Insert task into Tasks table
         const insertQuery = `
             INSERT INTO Tasks (Wedding_ID, Task_Name, Description, Status, Due_Date) 
             VALUES (@weddingID, @taskName, @description, @status, @dueDate);
@@ -1981,7 +1936,7 @@ app.get("/wedding-guests/:eventId", async (req, res) => {
         const request = new sql.Request();
         request.input("eventId", sql.Int, eventId);
 
-        // 1. Get all guests for the event
+        //  Get all guests for the event
         const query = `
             SELECT Guest_ID, Family_Name, No_Of_Guests_From_This_Family 
             FROM Guests 
@@ -1990,7 +1945,7 @@ app.get("/wedding-guests/:eventId", async (req, res) => {
         `;
         const result = await request.query(query);
 
-        // 2. Get max allowed guests for the event
+        //  Get max allowed guests for the event
         const query2 = `
             SELECT No_Of_Guests 
             FROM Event_Details 
@@ -1999,7 +1954,7 @@ app.get("/wedding-guests/:eventId", async (req, res) => {
         const result2 = await request.query(query2);
         const maxGuestsAllowed = result2.recordset[0]?.No_Of_Guests || 0;
 
-        // 3. Calculate total currently added guests
+        // Calculate total currently added guests
         const totalGuests = result.recordset.reduce((sum, guest) => sum + guest.No_Of_Guests_From_This_Family, 0);
 
         res.status(200).json({
@@ -2023,7 +1978,7 @@ app.get("/wedding-guests/:eventId", async (req, res) => {
     }
 });
 
-// Add guest(s) to an event (only if event is not completed)
+// Add guests to an event (only if event is not completed)
 app.post("/add-guest", async (req, res) => {
     try {
         const { eventId, familyName, newGuests } = req.body;
