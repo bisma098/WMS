@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CoverPage.css';
 import Footer from './Footer2';
-
+//heelo
 const CoverPage = () => {
     const navigate = useNavigate();
     const [showUserOptions, setShowUserOptions] = useState(false);
