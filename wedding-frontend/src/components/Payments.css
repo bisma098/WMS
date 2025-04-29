@@ -87,3 +87,23 @@
     background-color: #ccc;
     color: black;
 }
+
+.payment-method-select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 10px;
+    border: 1px solid #d1c4e9;
+    border-radius: 8px;
+    background-color: #f3e5f5;
+    color: #5c5270;
+    font-weight: 500;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-method-select:focus {
+    border-color: #7c4dff;
+    box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.2);
+    background-color: #ede7f6;
+}

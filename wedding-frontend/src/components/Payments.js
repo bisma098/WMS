@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Payments.css";
-//hi
 
-//heloooo
 function Payments() {
     const navigate = useNavigate();
     const [payments, setPayments] = useState([]);
     const [filter, setFilter] = useState("all");
     const [loadingPaymentId, setLoadingPaymentId] = useState(null);
     const [selectedPayment, setSelectedPayment] = useState(null);
+    const [accountNumber, setAccountNumber] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("JazzCash");
+
     const userId = JSON.parse(localStorage.getItem("user"))?.UserID;
 
     useEffect(() => {
@@ -38,17 +39,24 @@ function Payments() {
 
     const handlePayNow = (payment) => {
         setSelectedPayment(payment);
+        setAccountNumber("");
+        setPaymentMethod("JazzCash");
     };
 
     const confirmPayment = async () => {
         try {
-            if (!selectedPayment || !userId) return;
+            if (!selectedPayment || !userId || !accountNumber || !paymentMethod) {
+                alert("Please enter account number and select payment method.");
+                return;
+            }
 
             setLoadingPaymentId(selectedPayment.payment_id);
 
             const res = await axios.put("/update-payment", {
                 paymentId: selectedPayment.payment_id,
                 userId,
+                accountNumber,
+                paymentMethod
             });
 
             if (res.data.success) {
@@ -126,7 +134,6 @@ function Payments() {
                 )}
             </div>
 
-
             {selectedPayment && (
                 <div className="modal-backdrop">
                     <div className="payment-modal">
@@ -135,6 +142,23 @@ function Payments() {
                         <p><strong>Cost:</strong> Rs.{selectedPayment.Cost}</p>
                         <p><strong>Due Date:</strong> {new Date(selectedPayment.Due_Date).toLocaleDateString()}</p>
                         <p><strong>Event:</strong> {selectedPayment.Event_Type || "-"}</p>
+
+                        <input
+                            type="text"
+                            placeholder="Enter Account Number"
+                            value={accountNumber}
+                            onChange={(e) => setAccountNumber(e.target.value)}
+                            className="payment-input"
+                        />
+                        <select
+                            value={paymentMethod}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                            className="payment-method-select"
+                        >
+                            <option value="JazzCash">JazzCash</option>
+                            <option value="SadaPay">SadaPay</option>
+                            <option value="BankAccount">Bank Account</option>
+                        </select>
 
                         <div className="modal-actions">
                             <button

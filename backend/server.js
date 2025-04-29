@@ -261,6 +261,90 @@ app.post("/manager-info", async (req, res) => {
     }
 });
 
+app.get("/view-manager-details/:username", async (req, res) => {
+    try {
+        const username = req.params.username;
+
+        if (!username) {
+            return res.status(400).json({
+                success: false,
+                message: "Username is required"
+            });
+        }
+
+        const request = new sql.Request();
+        request.input("username", sql.VarChar, username);
+
+        const query = `
+            SELECT UserID, UserName, First_Name, Last_Name, Phone_No, Alternate_Phone_no, Email
+            FROM managers
+            WHERE UserName = @username;
+        `;
+        const result = await request.query(query);
+
+        if (result.recordset.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Manager not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            manager: result.recordset[0],
+            message: "Manager details retrieved successfully"
+        });
+
+    } catch (err) {
+        console.error("Error fetching manager details:", err);
+        res.status(500).json({
+            success: false,
+            message: "Error fetching manager details"
+        });
+    }
+});
+app.post("/manager-details", async (req, res) => {
+    try {
+        const { username, firstName, lastName, phoneNo, alternatePhone, email } = req.body;
+
+        if (!username) {
+            return res.status(400).json({ message: "Username is required" });
+        }
+
+        const updateRequest = new sql.Request();
+        updateRequest.input("username", sql.VarChar, username);
+        updateRequest.input("firstName", sql.VarChar, firstName);
+        updateRequest.input("lastName", sql.VarChar, lastName);
+        updateRequest.input("phoneNo", sql.VarChar, phoneNo);
+        updateRequest.input("alternatePhone", sql.VarChar, alternatePhone);
+        updateRequest.input("email", sql.VarChar, email);
+
+        const updateQuery = `
+            UPDATE managers 
+            SET First_Name = @firstName, Last_Name = @lastName, Phone_No = @phoneNo, 
+                Alternate_Phone_no = @alternatePhone, Email = @email
+            WHERE UserName = @username
+        `;
+
+        await updateRequest.query(updateQuery);
+
+        const fetchRequest = new sql.Request();
+        fetchRequest.input("username", sql.VarChar, username);
+        const result = await fetchRequest.query(`SELECT UserID, UserName FROM managers WHERE UserName = @username`);
+
+        res.status(200).json({
+            success: true,
+            message: "Manager details updated successfully",
+            manager: result.recordset[0]
+        });
+
+    } catch (err) {
+        console.error("Manager details error:", err);
+        res.status(500).json({ message: "Error updating manager details" });
+    }
+});
+
+
 // View user details by username
 app.get("/view-user-details/:username", async (req, res) => {
     try {
@@ -1632,24 +1716,21 @@ app.get("/due-payments/:userId", async (req, res) => {
 
 app.put("/update-payment", async (req, res) => {
     try {
-        const { paymentId, userId } = req.body;
+        const { paymentId, userId, accountNumber, paymentMethod } = req.body;
 
-        // Log the received parameters
-        console.log("Received paymentId:", paymentId);
-        console.log("Received userId:", userId);
-
-        if (!paymentId || !userId) {
+        if (!paymentId || !userId || !accountNumber || !paymentMethod) {
             return res.status(400).json({
                 success: false,
-                message: "Payment ID and User ID are required"
+                message: "Payment ID, User ID, Account Number, and Payment Method are required"
             });
         }
 
         const request = new sql.Request();
         request.input("paymentId", sql.Int, paymentId);
         request.input("userId", sql.Int, userId);
+        request.input("accountNumber", sql.VarChar(50), accountNumber);
+        request.input("paymentMethod", sql.VarChar(50), paymentMethod);
 
-        // Verify if the payment exists and if it's in 'Pending' or 'Overdue' state
         const checkQuery = `
             SELECT Payment_ID 
             FROM Payments 
@@ -1658,10 +1739,11 @@ app.put("/update-payment", async (req, res) => {
             AND EXISTS (
                 SELECT 1 
                 FROM Wedding_Table w
-                WHERE w.UserID = @userId AND w.Wedding_ID = (SELECT Wedding_ID FROM Payments WHERE Payment_ID = @paymentId)
+                WHERE w.UserID = @userId AND w.Wedding_ID = (
+                    SELECT Wedding_ID FROM Payments WHERE Payment_ID = @paymentId
+                )
             )
         `;
-
         const checkResult = await request.query(checkQuery);
 
         if (checkResult.recordset.length === 0) {
@@ -1671,14 +1753,13 @@ app.put("/update-payment", async (req, res) => {
             });
         }
 
-        // Update the payment status to 'Paid'
         const updateQuery = `
             UPDATE Payments
-            SET Payment_Status = 'Paid'
+            SET Payment_Status = 'Paid',
+                Account_Number = @accountNumber,
+                Payment_Method = @paymentMethod
             WHERE Payment_ID = @paymentId
-            AND Payment_Status IN ('Pending', 'Overdue')
         `;
-
         const result = await request.query(updateQuery);
 
         if (result.rowsAffected[0] === 0) {

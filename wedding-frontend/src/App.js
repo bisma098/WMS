@@ -20,6 +20,7 @@ import PhotographyVendors from './components/PhotographyVendors';
 import DecorVendors from './components/DecorVendors';
 import DjVendors from './components/DjVendors';
 import CoverPage from './components/CoverPage';
+import ManagerLayout from './components/ManagerLayout';
 import ManagerDashboard from './components/ManagerDashboard';
 
 
@@ -32,7 +33,7 @@ import DecorVendorsManager from './components/DecorVendorsManager';
 import HallVendorsManager from './components/HallVendorsManager';
 import DjVendorsManager from './components/DjVendorsManager';
 import PhotographyVendorsManager from './components/PhotographyVendorsManager';
-
+import ManagerProfile from './components/ManagerProfile'; 
 
 function App() {
   return (
@@ -50,18 +51,19 @@ function App() {
         <Route path="/manager-login" element={<ManagerLogin />} />
         <Route path="/manager-signup" element={<ManagerSignup />} />
         <Route path="/manager-info" element={<ManagerInfo />} />
+        <Route element={<ManagerLayout />}>
         <Route path="/manager-dashboard" element={<ManagerDashboard />} />
         <Route path="/manager-dashboard/catering" element={<CateringVendorsManager />} />
         <Route path="/manager-dashboard/decor" element={<DecorVendorsManager />} />
         <Route path="/manager-dashboard/hall" element={<HallVendorsManager />} />
         <Route path="/manager-dashboard/dj" element={<DjVendorsManager />} />
         <Route path="/manager-dashboard/photography" element={<PhotographyVendorsManager />} />
-
+        <Route path="/manager-profile/:username" element={<ManagerProfile />} />
+      </Route>
         {/* Pages with Main Header Only */}
         <Route element={<MainLayout />}>
           {/* Pages with Main Header + Header2 */}
           <Route element={<SubLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/weddings" element={<Weddings />} />
             <Route path="/wedding/:weddingId/events" element={<Events />} />
             <Route path="/tasks" element={<Tasks />} />
