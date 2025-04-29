@@ -8,7 +8,7 @@ app.use(cors());
 const port = 5000;
 const config = {
     user: 'sa', // Replace with your SQL Server username
-    password: 'Mm755988', // Replace with your SQL Server password
+    password: 'bix098', // Replace with your SQL Server password
     server: 'localhost', // Replace with your server name
     database: 'WMS', // Replace with your database name
     options: {
@@ -1379,12 +1379,37 @@ app.delete('/delete-dj-vendor/:vendorId', async (req, res) => {
 
 // Add Hall Vendor
 app.post('/add-hall-vendor', async (req, res) => {
-    const { location_id, name, contact_no, cost, capacity, rating } = req.body;
+    const { city, address, name, contact_no, cost, capacity, rating } = req.body;
     try {
-        await sql.query(`
+        const request = new sql.Request();
+
+        // Insert into Locations and return the inserted Location_ID
+        request.input("city", sql.VarChar, city);
+        request.input("address", sql.VarChar, address);
+
+        const insertLocationQuery = `
+            INSERT INTO Locations (City, Address)
+            OUTPUT INSERTED.Location_ID
+            VALUES (@city, @address)
+        `;
+        const locationResult = await request.query(insertLocationQuery);
+        const locationId = locationResult.recordset[0].Location_ID;
+
+        // Insert into Hall_Vendor using the returned Location_ID
+        const hallRequest = new sql.Request();
+        hallRequest.input("Location_ID", sql.Int, locationId);
+        hallRequest.input("name", sql.VarChar, name);
+        hallRequest.input("contact_no", sql.VarChar, contact_no);
+        hallRequest.input("cost", sql.Float, cost);
+        hallRequest.input("capacity", sql.Int, capacity);
+        hallRequest.input("rating", sql.Float, rating);
+
+        const insertHallQuery = `
             INSERT INTO Hall_Vendor (Location_ID, Name, Contact_No, Cost, Capacity, Rating)
-            VALUES (${location_id}, '${name}', '${contact_no}', ${cost}, ${capacity}, ${rating})
-        `);
+            VALUES (@Location_ID, @name, @contact_no, @cost, @capacity, @rating)
+        `;
+        await hallRequest.query(insertHallQuery);
+
         res.status(200).json({ message: 'Hall Vendor added successfully' });
     } catch (error) {
         console.error('Add Hall Vendor Error:', error);
@@ -1470,7 +1495,7 @@ app.get('/dj-vendors', async (req, res) => {
 app.get('/hall-vendors', async (req, res) => {
     try {
         const result = await sql.query(`
-            SELECT hv.*, l.City AS Location_City
+            Select hv.Vendor_ID,l.City,l.Address,hv.Name,hv.Contact_No,hv.Cost,hv.Capacity,hv.Rating 
             FROM Hall_Vendor hv
             JOIN Locations l ON hv.Location_ID = l.Location_ID
         `);

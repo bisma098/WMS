@@ -5,7 +5,8 @@ import './ManagerVendorsTable.css';
 function HallVendorsManager() {
     const [vendors, setVendors] = useState([]);
     const [newVendor, setNewVendor] = useState({
-        location_id: '',
+        city: '',
+        address: '',
         name: '',
         contact_no: '',
         cost: '',
@@ -40,7 +41,8 @@ function HallVendorsManager() {
         try {
             await axios.post('/add-hall-vendor', newVendor);
             setNewVendor({
-                location_id: '',
+                city: '',
+                address: '',
                 name: '',
                 contact_no: '',
                 cost: '',
@@ -63,7 +65,8 @@ function HallVendorsManager() {
             <table>
                 <thead>
                     <tr>
-                        <th>Location ID</th>
+                        <th>City</th>
+                        <th>Address</th>
                         <th>Name</th>
                         <th>Contact No</th>
                         <th>Cost</th>
@@ -75,7 +78,8 @@ function HallVendorsManager() {
                 <tbody>
                     {vendors.map((vendor) => (
                         <tr key={vendor.Vendor_ID}>
-                            <td>{vendor.Location_ID}</td>
+                            <td>{vendor.City}</td>
+                            <td>{vendor.Address}</td>
                             <td>{vendor.Name}</td>
                             <td>{vendor.Contact_No}</td>
                             <td>{vendor.Cost}</td>
@@ -91,7 +95,8 @@ function HallVendorsManager() {
 
             <h3>Add New Hall Vendor</h3>
             <div className="add-vendor-form">
-                <input name="location_id" placeholder="Location ID" value={newVendor.location_id} onChange={handleInputChange} />
+                <input name="city" placeholder="City" value={newVendor.city} onChange={handleInputChange} />
+                <input name="address" placeholder="Address" value={newVendor.address} onChange={handleInputChange} />
                 <input name="name" placeholder="Name" value={newVendor.name} onChange={handleInputChange} />
                 <input name="contact_no" placeholder="Contact No" value={newVendor.contact_no} onChange={handleInputChange} />
                 <input name="cost" placeholder="Cost" value={newVendor.cost} onChange={handleInputChange} />
