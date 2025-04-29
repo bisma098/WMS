@@ -7,11 +7,11 @@ const ManagerProfile = () => {
     const { username } = useParams();
     const [manager, setManager] = useState(null);
     const [formData, setFormData] = useState({
-        First_Name: '',
-        Last_Name: '',
-        Phone_No: '',
-        Alternate_Phone_no: '',
-        Email: ''
+        firstName: '',
+        lastName: '',
+        phoneNo: '',
+        alternatePhone: '',
+        email: ''
     });
     const [readOnly, setReadOnly] = useState(true);
 
@@ -23,11 +23,11 @@ const ManagerProfile = () => {
                     const data = res.data.manager;
                     setManager(data);
                     setFormData({
-                        First_Name: data.First_Name || '',
-                        Last_Name: data.Last_Name || '',
-                        Phone_No: data.Phone_No || '',
-                        Alternate_Phone_no: data.Alternate_Phone_no || '',
-                        Email: data.Email || ''
+                        firstName: data.First_Name || '',
+                        lastName: data.Last_Name || '',
+                        phoneNo: data.Phone_No || '',
+                        alternatePhone: data.Alternate_Phone_no || '',
+                        email: data.Email || ''
                     });
                 }
             } catch (err) {
@@ -61,19 +61,31 @@ const ManagerProfile = () => {
         }
     };
 
-    if (!manager) return <div className="profile-container"><div className="profile-box">Loading...</div></div>;
+    if (!manager) return (
+        <div className="profile-container">
+            <div className="profile-box">Loading...</div>
+        </div>
+    );
+
+    const fields = [
+        { name: "firstName", label: "First Name" },
+        { name: "lastName", label: "Last Name" },
+        { name: "phoneNo", label: "Phone No" },
+        { name: "alternatePhone", label: "Alternate Phone No" },
+        { name: "email", label: "Email" }
+    ];
 
     return (
         <div className="profile-container">
             <div className="profile-box">
                 <h2 className="profile-title">Manager Profile</h2>
-                {["First_Name", "Last_Name", "Phone_No", "Alternate_Phone_no", "Email"].map(field => (
-                    <div className="profile-field" key={field}>
-                        <label className="profile-label">{field.replace(/_/g, " ")}</label>
+                {fields.map(({ name, label }) => (
+                    <div className="profile-field" key={name}>
+                        <label className="profile-label">{label}</label>
                         <input
                             type="text"
-                            name={field}
-                            value={formData[field] || ""}
+                            name={name}
+                            value={formData[name] || ""}
                             onChange={handleChange}
                             readOnly={readOnly}
                             className={`profile-input ${readOnly ? "readonly" : ""}`}
