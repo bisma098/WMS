@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Dashboard from './components/Dashboard';
 import UserInfo from './components/UserInfo';
 import MainLayout from './components/MainLayout';
 import SubLayout from './components/SubLayout';
@@ -33,7 +32,7 @@ import DecorVendorsManager from './components/DecorVendorsManager';
 import HallVendorsManager from './components/HallVendorsManager';
 import DjVendorsManager from './components/DjVendorsManager';
 import PhotographyVendorsManager from './components/PhotographyVendorsManager';
-import ManagerProfile from './components/ManagerProfile'; 
+import ManagerProfile from './components/ManagerProfile';
 
 function App() {
   return (
@@ -52,14 +51,14 @@ function App() {
         <Route path="/manager-signup" element={<ManagerSignup />} />
         <Route path="/manager-info" element={<ManagerInfo />} />
         <Route element={<ManagerLayout />}>
-        <Route path="/manager-dashboard" element={<ManagerDashboard />} />
-        <Route path="/manager-dashboard/catering" element={<CateringVendorsManager />} />
-        <Route path="/manager-dashboard/decor" element={<DecorVendorsManager />} />
-        <Route path="/manager-dashboard/hall" element={<HallVendorsManager />} />
-        <Route path="/manager-dashboard/dj" element={<DjVendorsManager />} />
-        <Route path="/manager-dashboard/photography" element={<PhotographyVendorsManager />} />
-        <Route path="/manager-profile/:username" element={<ManagerProfile />} />
-      </Route>
+          <Route path="/manager-dashboard" element={<ManagerDashboard />} />
+          <Route path="/manager-dashboard/catering" element={<CateringVendorsManager />} />
+          <Route path="/manager-dashboard/decor" element={<DecorVendorsManager />} />
+          <Route path="/manager-dashboard/hall" element={<HallVendorsManager />} />
+          <Route path="/manager-dashboard/dj" element={<DjVendorsManager />} />
+          <Route path="/manager-dashboard/photography" element={<PhotographyVendorsManager />} />
+          <Route path="/manager-profile/:username" element={<ManagerProfile />} />
+        </Route>
         {/* Pages with Main Header Only */}
         <Route element={<MainLayout />}>
           {/* Pages with Main Header + Header2 */}

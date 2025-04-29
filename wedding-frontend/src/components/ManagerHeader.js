@@ -33,7 +33,7 @@ function ManagerHeader() {
 
     return (
         <div className="header-container">
-            <div className="header-left" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>
+            <div className="header-left" onClick={() => navigate('/manager-dashboard')} style={{ cursor: 'pointer' }}>
                 <img src="/assets/logo.png" alt="WedSync Logo" className="header-logo" />
                 <h1 className="brand-name">WedSync</h1>
             </div>

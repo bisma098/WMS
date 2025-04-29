@@ -1,5 +1,6 @@
 .vendors-table-page {
     padding: 20px;
+    padding-bottom: 100px;
 }
 
 table {
@@ -8,11 +9,14 @@ table {
     margin-bottom: 20px;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid lightgray;
 }
 
-th, td {
+th,
+td {
     padding: 10px;
     text-align: center;
 }

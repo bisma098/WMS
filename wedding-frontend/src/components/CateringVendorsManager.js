@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ManagerVendorsTable.css'; // New simple table CSS
+import './ManagerVendorsTable.css';
 
 function CateringVendorsManager() {
     const [vendors, setVendors] = useState([]);

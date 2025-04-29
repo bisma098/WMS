@@ -13,6 +13,7 @@
     color: #5c5270;
     font-weight: 500;
 }
+
 .payments-list {
     margin-top: 20px;
 }
@@ -35,6 +36,7 @@
     background-color: #e3d5f7;
     color: #5c5270;
 }
+
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -53,7 +55,7 @@
     padding: 20px;
     border-radius: 12px;
     width: 300px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .payment-modal h3 {
@@ -71,7 +73,9 @@
     justify-content: space-between;
 }
 
-.pay-btn, .cancel-btn {
+
+.pay-btn,
+.cancel-btn {
     padding: 8px 14px;
     border: none;
     border-radius: 6px;
@@ -79,7 +83,7 @@
 }
 
 .pay-btn {
-    background-color: #7c4dff;
+    background-color: #853894b2;
     color: white;
 }
 
@@ -88,10 +92,21 @@
     color: black;
 }
 
+.payment-input {
+    margin-top: 10px;
+    border: 1px solid #d1c4e9;
+    border-radius: 8px;
+    background-color: #f3e5f5;
+    color: #5c5270;
+    font-weight: 500;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
 .payment-method-select {
     width: 100%;
     padding: 10px 12px;
-    margin-top: 10px;
+    margin-top: 5px;
     border: 1px solid #d1c4e9;
     border-radius: 8px;
     background-color: #f3e5f5;
